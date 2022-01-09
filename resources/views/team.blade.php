@@ -1,7 +1,14 @@
 @extends('layouts.header')
 
 @section('content')
+
 <div class="wrapper wrapper-content">
+    @if(session()->has('status'))
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{session()->get('status')}}
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
@@ -28,14 +35,16 @@
                         <tbody>
                             @foreach($teams as $team)
                                 <tr>
-                                    <td>Name</td>
-                                    <td>Image</td>
-                                    <td>Role</td>
-                                    <td>Facebook</td>
-                                    <td>Instragram</td>
-                                    <td>Linked In</td>
-                                    <td>Action</td>
+                                    <td>{{$team->name}}</td>
+                                    <td><a href="#" data-target="#image{{$team->id}}" data-toggle="modal" > <img alt="image" class="rounded-circle bg-light" style='width:48px;height:48px;' src="{{asset(".$team->image.")}}"/></a></td>
+                                    <td>{{$team->role}}</td>
+                                    <td><a target="_blank" href="{{$team->facebook}}">{{$team->facebook}}</a></td>
+                                    <td><a target="_blank" href="{{$team->instagram}}">{{$team->instagram}}</a></td>
+                                    <td  ><a target="_blank" href="{{$team->linkedin}}">{{$team->linkedin}}</a></td>
+                                    <td data-id='{{$team->id}}'><button class="btn btn-sm btn-danger remove-item" data-target="#remove_team{{$team->id}}" data-toggle="modal">Remove</button> </td></td>
                                 </tr>
+                                
+                                @include('image')
                             @endforeach
                         </tbody>
                     </table>
@@ -43,8 +52,9 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
   
 </div>
 @include('new_develope')
+
 @endsection

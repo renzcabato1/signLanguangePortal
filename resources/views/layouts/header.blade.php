@@ -101,7 +101,7 @@
                     <li @if($header == 'Team') class='active' @endif>
                         <a href="{{ url('/team') }}" class='active' onclick='show()' ><i class="fa fa-group"></i> <span class="nav-label">Team</span> </a>
                     </li>
-                    <li @if($header == 'FAQ') class='active' @endif>
+                    <li @if($header == 'Faqs') class='active' @endif>
                         <a href="{{ url('/faq') }}" class='active' onclick='show()' ><i class="fa fa-database"></i> <span class="nav-label">FAQ's</span> </a>
                     </li>
                     <li @if($header == 'Messages') class='active' @endif>
@@ -113,7 +113,6 @@
                     <li @if($header == 'Users') class='active' @endif>
                         <a href="{{ url('/users') }}" class='active' onclick='show()' ><i class="fa fa-user"></i> <span class="nav-label">Users</span> </a>
                     </li>
-                   
                 </ul>
             </div>
         </nav>
@@ -247,6 +246,7 @@
                 <script src="{{ asset('bootstrap/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
                 <script src="{{ asset('bootstrap/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+                {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
                 <script>
                      $('.chosen-select').chosen({width: "100%"});
                      $(".touchspin1").TouchSpin({
@@ -400,7 +400,77 @@
                             
                         });
                     });
-                    
+                   
+                    $("body").on("click",".remove-item",function(){
+                        // var base_path = location.hostname;
+                        var id = $(this).parent("td").data('id');
+                        var c_obj = $(this).parents("tr");
+                        // alert(id);
+                        swal({
+                            title: "Are you sure you want to delete this?",
+                            text: "You will not be able to recover this data!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            closeOnConfirm: false
+                        }, function (isConfirm) {
+                            // alert(isConfirm);
+                            if(isConfirm == true)
+                            {
+                                c_obj.remove();
+                                $.ajax({
+                                    dataType: 'json',
+                                    type:'POST',
+                                    url:  'deleteDev',
+                                    data:{id:id},
+                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                }).done(function(data){
+                                    // c_obj.remove();
+                                    swal("Deleted!", "Your data has been deleted.", "success");
+                                });
+                            
+                            }
+                            swal("Deleted!", "Your data has been deleted.", "success");
+
+                        });
+
+                    });
+                    $("body").on("click",".remove-item-faq",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("td").data('id');
+                            var c_obj = $(this).parents("tr");
+                            // alert(id);
+                            swal({
+                                title: "Are you sure you want to delete this?",
+                                text: "You will not be able to recover this data!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    c_obj.remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'delete-faq',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        // c_obj.remove();
+                                        swal("Deleted!", "Your data has been deleted.", "success");
+                                    });
+                                
+                                }
+                                swal("Deleted!", "Your data has been deleted.", "success");
+
+                            });
+
+            });
                 </script>
             </body>
             </html>

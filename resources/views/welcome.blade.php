@@ -147,7 +147,7 @@
                   </div>
                   <div class="col-lg-6 pt-4 pt-lg-0">
                     <p>
-                        The Filipino sign language application is a windows application and an interactive learning tool used to learn a new language specified as the “sign language” from the title itself that all people with hearing and speech impairments use in their daily lives to communicate. FSLA is an easy access tool especially for beginners that are willing to try and add up knowledge about new languages for a more diverse community. Having knowledge in a new language or the focus language (sign language) will reach and have the connection to extend to the deaf community and prepare every individual for handling the language and communication barriers. 
+                        The Filipino sign language application is a Web based application and an interactive learning tool used to learn a new language specified as the “sign language” from the title itself that all people with hearing and speech impairments use in their daily lives to communicate. FSLA is an easy access tool especially for beginners that are willing to try and add up knowledge about new languages for a more diverse community. Having knowledge in a new language or the focus language (sign language) will reach and have the connection to extend to the deaf community and prepare every individual for handling the language and communication barriers. 
                     </p>
                     {{-- <a href="#" class="btn-learn-more">Learn More</a> --}}
                   </div>
@@ -170,18 +170,18 @@
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="member">
                         <div class="member-img">
-                            <img src="images/no_image.png" class="img-fluid" alt="">
+                            <img src="{{asset(".$team->image.")}}" class="img-fluid" alt="">
                             <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
+                                {{-- <a href=""><i class="bi bi-twitter"></i></a> --}}
+                                <a target="_blank" href="{{$team->facebook}}"><i class="bi bi-facebook"></i></a>
+                                <a target="_blank" href="{{$team->instagram}}"><i class="bi bi-instagram"></i></a>
+                                <a target="_blank" href="{{$team->linkedin}}"><i class="bi bi-linkedin"></i></a>
                             </div>
                         
                         </div>
                         <div class="member-info">
-                            <h4>Mike Angelo Asi</h4>
-                            <span>Role</span>
+                            <h4>{{$team->name}}</h4>
+                            <span>{{$team->role}}</span>
                         </div>
                         </div>
                     </div>
@@ -203,38 +203,18 @@
         
                 <div class="faq-list">
                   <ul>
+                    @foreach($faqs as $faq)
                     <li data-aos="fade-up">
-                      <i class="bx bx-help-circle icon-help"></i><a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-list-1">How many Sign languages are there in the world? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                      <div id="faq-list-1" class="collapse" data-bs-parent=".faq-list">
+                      <i class="bx bx-help-circle icon-help"></i>
+                      <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-list-{{$faq->id}}">{!! nl2br($faq->question) !!} 
+                        <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i>
+                      </a>
+                      <div id="faq-list-{{$faq->id}}" class="collapse" data-bs-parent=".faq-list">
                         <p>
-                            It’s difficult to obtain an accurate number of languages in the world for a variety of reasons — this becomes all the more difficult when trying to put a number on signed languages specifically. Ethnologue lists 142, but there are many more than that; for example, Rwandan Sign Language is not listed in the Ethnologue, although it’s an established language within the country. Wikipedia estimates the number to be around 300. <br><br>
-                            Signing communities are often small and, in some parts of the world, extremely discriminated against. Education systems often do not teach Sign languages and will even go so far as to prohibit the use of Sign languages within schools. Jessica Lee writes in her dissertation on the Deaf community of Tanzania that although there is one standardized sign language of Tanzania, Tanzanian Sign Language (LAT), there are hundreds of home signs that have emerged around the country (home signs are communication systems developed usually by Deaf children who are isolated from the Deaf community).<br><br>
-                            This creates a challenge for linguists working to classify and document Sign languages. In spoken languages, there is confusion and ongoing discussions revolving around the classification of languages and dialects; similarly, this occurs in signed languages — Sign languages commonly develop from home signs and village sign languages, when children who are deaf or hard of hearing attend school and begin blending their signs together. Overtime, this develops into a newly formed language.<br><br>
-                            Around 5% of the world’s population is hard of hearing or Deaf, totaling to around 360 million people. Yet sign languages are considered ‘minority’ languages, making them, and the people who use them, subject to the perceptions that come with being minoritized.<br><br>
-                            In the field of linguistics, Sign linguistics has, historically, been understudied compared to other subfields. This has led to less documentation and data collection, making it more challenge to put a number on it.<br><br>
-                        </p>
+                          {!! nl2br($faq->answer) !!} </p>
                       </div>
                     </li>
-        
-                    <li data-aos="fade-up" data-aos-delay="100">
-                      <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">How do children learn Sign languages? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                      <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
-                        <p>
-                            They are taught naturally, just like any other spoken language. And just like children learning spoken languages, there are Sign language milestones and baby babble. When babies are learning to sign, they “babble” with their hands as they learn to develop more dexterity to articulate their signs.</p>
-                      </div>
-                    </li>
-        
-                    <li data-aos="fade-up" data-aos-delay="200">
-                      <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">Is there an equivalent to speech impediments, like if a signer’s fingers can’t move a certain way?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                      <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-                        <p>
-                            Yes, there definitely are equivalents. Stuttering is actually a neurological disorder, so it affects everyone equally — Deaf or hearing. Someone who is deaf and has a speech disorder might repeat the first motion of a sign involuntarily, for instance. <br><br>
-                            There are a lot of signers who have stiff fingers due to injuries, arthritis, etc. and they might have trouble with certain signs or with signing at a rapid pace. Oftentimes these people are teased (lovingly, so I’ve been told!) by their friends or family for having a “lisp”.
-                        </p>
-                      </div>
-                    </li>
-        
-                  
+                    @endforeach
         
                   </ul>
                 </div>
@@ -298,7 +278,7 @@
         
               <div class="me-md-auto text-center text-md-start">
                 <div class="copyright">
-                  &copy; Copyright <strong><span>Dito nito lagay group name niyo.</span></strong>. All Rights Reserved
+                  &copy; Copyright <strong><span></span></strong>. All Rights Reserved
                 </div>
                
               </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Message;
+use App\Faq;
 use App\Team;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,23 @@ class MessageController extends Controller
     public function home()
     {
         $teams = Team::get();
+        $faqs = Faq::get();
         return view('welcome',
         array(
             'teams' => $teams,
+            'faqs' => $faqs,
         ));
 
+    }
+    public function messages()
+    {
+        $messages = Message::orderBy('created_at','desc')->get();
+       
+        return view('messages',
+        array(
+            'subheader' => '',
+            'header' => "Messages",
+            'messages' => $messages,
+        ));
     }
 }

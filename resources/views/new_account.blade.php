@@ -1,5 +1,5 @@
 
-<div class="modal" id="new_request" tabindex="-1" role="dialog"  >
+<div class="modal" id="new_account" tabindex="-1" role="dialog"  >
     <div class="modal-dialog modal-lg " role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,32 +12,25 @@
                     </button>
                 </div>
             </div>
-            <form method='post' action='new-developer' onsubmit='show();'  enctype="multipart/form-data" >
+            <form method='post' action='new-account' onsubmit='show();'  enctype="multipart/form-data" >
                 <div class="modal-body">
                     {{ csrf_field() }}
-                    <div class='col-md-12'>
-                        Image :
-                        <input type="file" class="form-control-sm form-control " accept="image/png, image/gif, image/jpeg"  name="image" required/>
-                     </div>
+                   
                     <div class='col-md-12'>
                         Name :
-                        <input type="text" class="form-control-sm form-control "   name="name" required/>
+                        <input type="text" class="form-control-sm form-control "  value="{{ old('name') }}"  name="name" required/>
                      </div>
                     <div class='col-md-12'>
-                        Role :
-                        <input type="text" class="form-control-sm form-control "   name="role" required/>
+                        Email :
+                        <input type="email" class="form-control-sm form-control "  value="{{ old('email') }}"  name="email" required/>
                      </div>
                     <div class='col-md-12'>
-                        facebook Link (optional):
-                        <input type="text" class="form-control-sm form-control "   name="facebook" />
+                       Password:
+                        <input type="password" class="form-control-sm form-control "   name="password" required/>
                      </div>
                     <div class='col-md-12'>
-                        Instragram Link (optional):
-                        <input type="text" class="form-control-sm form-control "   name="instagram" />
-                     </div>
-                    <div class='col-md-12'>
-                        Linked In (optional):
-                        <input type="text" class="form-control-sm form-control "   name="linkedIn" />
+                        Password Confirmation:
+                        <input type="password" class="form-control-sm form-control "   name="password_confirmation" required/>
                      </div>
                 </div>
                 <div class="modal-footer">
