@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('send-message','MessageController@sendMessage');
+Route::get('video',"VideoController@view");
 Route::group( ['middleware' => 'auth'], function()
 {
     //team

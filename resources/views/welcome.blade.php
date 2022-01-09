@@ -81,7 +81,7 @@
                 </div>
               </div>
               <div class="text-center">
-                <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                <a target="_blank" href="{{ url('/video') }}" class="btn-get-started scrollto">Get Started</a>
               </div>
               
         
