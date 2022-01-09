@@ -33,14 +33,19 @@
                         </tr>
                         </thead>
                         <tbody>
+                          
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>********</td>
                                     <td>{{date("F d, Y h:m a",strtotime($user->created_at))}}</td>
-                                    <td></td>
+                                    <td data-id='{{$user->id}}'>
+                                        <button class="btn btn-sm btn-info" data-target="#change_pass{{$user->id}}" data-toggle="modal">Change Password</button>
+                                        @if(Auth::user()->id != $user->id)<button class="btn btn-sm btn-danger delete-account" data-target="#deleteacc{{$user->id}}" data-toggle="modal">Delete Account</button>@endif
+                                    </td>
                                 </tr>
+                                @include('changepassword')
                             @endforeach
                         </tbody>
                     </table>

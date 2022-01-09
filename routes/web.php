@@ -37,5 +37,12 @@ Route::group( ['middleware' => 'auth'], function()
     //Users
     Route::get('users','AccountController@users');
     Route::post('new-account','AccountController@new_account');
+    Route::post('delete-account','AccountController@delete_account');
+    Route::post('change-password/{id}','AccountController@changepassword');
+    
+    //word signs
+    Route::get('signs','SignController@sign');
+    Route::post('new-sign','SignController@newSign');
+    Route::post('delete-sign','SignController@delsign');
 }
 );

@@ -24,8 +24,7 @@
     <!-- FooTable -->
     <link href="{{ asset('bootstrap/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootstrap/css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootstrap/css/style.css') }}" rel="stylesheet">
+
     <link href="{{ asset('bootstrap/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/plugins/blueimp/css/blueimp-gallery.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">
@@ -35,6 +34,8 @@
 
     <link href="{{ asset('bootstrap/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/css/style.css') }}" rel="stylesheet">
     
     <style>
         input::-webkit-outer-spin-button,
@@ -86,8 +87,8 @@
                                 <span class="text-muted text-xs block"><b class="caret"></b></span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                                <li class="dropdown-divider"></li>
+                                {{-- <li><a class="dropdown-item" href="profile.html">Profile</a></li> --}}
+                                {{-- <li class="dropdown-divider"></li> --}}
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"  onclick="logout(); show();">Logout</a></li>
                             </ul>
                         </div>
@@ -208,6 +209,7 @@
             
             <!-- jQuery UI -->
             <script src="{{ asset('bootstrap/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('bootstrap/js/plugins/touchpunch/jquery.ui.touch-punch.min.js') }}"></script>
                <!-- Morris -->
             {{-- <script src="{{ asset('bootstrap/js/plugins/morris/raphael-2.1.0.min.js') }}"></script>
             <script src="{{ asset('bootstrap/js/plugins/morris/morris.js') }}"></script>
@@ -470,7 +472,76 @@
 
                             });
 
-            });
+                    });
+                    $("body").on("click",".delete-account",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("td").data('id');
+                            var c_obj = $(this).parents("tr");
+                            // alert(id);
+                            swal({
+                                title: "Are you sure you want to delete this account?",
+                                text: "You will not be able to recover this account!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    c_obj.remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'delete-account',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        // c_obj.remove();
+                                        swal("Deleted!", "Account has been deleted.", "success");
+                                    });
+                                
+                                }
+                                swal("Deleted!", "Account has been deleted.", "success");
+
+                            });
+
+                        });
+                    $("body").on("click",".delete-sign",function(){
+                            // var base_path = location.hostname;
+                            var id = $(this).parent("div").data('id');
+                            
+                            swal({
+                                title: "Are you sure you want to delete this?",
+                                text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                closeOnConfirm: false
+                            }, function (isConfirm) {
+                                // alert(isConfirm);
+                                if(isConfirm == true)
+                                {
+                                    $("#"+id).remove();
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type:'POST',
+                                        url:  'delete-sign',
+                                        data:{id:id},
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    }).done(function(data){
+                                        // c_obj.remove();
+                                        swal("Deleted!", "Sign has been deleted.", "success");
+                                    });
+                                
+                                }
+                                swal("Deleted!", "Sign has been deleted.", "success");
+
+                            });
+
+                        });
                 </script>
             </body>
             </html>

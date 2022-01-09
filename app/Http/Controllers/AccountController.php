@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use DB;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -32,6 +33,30 @@ class AccountController extends Controller
         $new_account->password = bcrypt($request->password);
         $new_account->save();
         $request->session()->flash('status','Successfully created');
+        return back();
+
+    }
+    public function delete_account(Request $request)
+    {
+       
+        DB::table('Users')
+        ->where('id', $request->id)
+
+        ->delete();
+
+        echo "Success";
+
+    }
+    public function changepassword(Request $request,$id)
+    {
+        $this->validate($request, [
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $user = User::where('id',$id)->first();
+        $user->password = bcrypt($request->password);
+        $user->save(); 
+        $request->session()->flash('status','Successfully change password');
         return back();
 
     }
