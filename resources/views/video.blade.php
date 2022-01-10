@@ -45,7 +45,7 @@
     <div class="row pt-5">
       <video class="input_video" style='display:none;'></video>
       
-      <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+      <canvas class="output_canvas" width="640" height="480"></canvas>
       <Br>
       <span class='text-center'> Result :</span>
     </div>
@@ -65,8 +65,8 @@
       console.log(results);
         for (const landmarks of results.multiHandLandmarks) {
           drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
-                         {color: '#00FF00', lineWidth: 5});
-          drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 2});
+                         {color: '#00FF00', lineWidth: 2});
+          drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 1});
         }
       }
       canvasCtx.restore();
