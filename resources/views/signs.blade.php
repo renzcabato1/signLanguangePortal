@@ -18,7 +18,7 @@
                     </h5>
                     <div ibox-tools></div>
                 </div>
-                <div class='row pl-3'>
+                <div class='row pl-3 text-center'>
                     @foreach($signs as $sign)
                   
                         <div class="col-md-3 border ibox-content" id='{{$sign->id}}' data-id='{{$sign->id}}'>

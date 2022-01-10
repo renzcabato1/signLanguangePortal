@@ -23,6 +23,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  
   <style>
     .loader {
         position: fixed;
@@ -41,28 +42,35 @@
   </div>
   
   <!-- <img id="img" src="hand.jpg"/>  -->
-  <div class="d-flex justify-content-center">
+  <div class='text-center pt-5' > <h3>Filipino Sign Language Web Application </h3> </div>
+  <div class="d-flex justify-content-center ">
     <div class="row pt-5">
+     
       <video class="input_video" style='display:none;'></video>
-      
-      <canvas class="output_canvas" width="640" height="480"></canvas>
+      {{-- <video class="input_video"  height="640" width="480" poster='{{asset("/images/1641794477_i_love_you.jpg")}}'> --}}
+      <canvas class="output_canvas border border-dark" width="640" height="480"></canvas>
       <Br>
-      <span class='text-center'> Result :</span>
+      {{-- <span class='text-center'> Result :</span> --}}
     </div>
   </div>
+  <div class='text-center pt-5' > <h3>Result : <span id='result'> None</span> </h3> </div>
   <script type="module">
+    var signs = {!! json_encode($signs->toArray()) !!};
+    console.log(signs);
     show();
     const videoElement = document.getElementsByClassName('input_video')[0];
+    const renz = document.getElementsByClassName('renz')[0];
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
     const canvasCtx = canvasElement.getContext('2d');
     
     function onResults(results) {
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-      canvasCtx.drawImage(
-          results.image, 0, 0, canvasElement.width, canvasElement.height);
-      if (results.multiHandLandmarks) {
-      console.log(results);
+      canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+        var  multiHandWorldLandmarks = results.multiHandWorldLandmarks;
+      if (multiHandWorldLandmarks.length >0) {
+        
+      console.log(results.multiHandWorldLandmarks);
         for (const landmarks of results.multiHandLandmarks) {
           drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
                          {color: '#00FF00', lineWidth: 2});
