@@ -19,33 +19,84 @@
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <style>
+    .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url("{{ asset('/images/3.gif')}}") 50% 50% no-repeat rgb(249,249,249) ;
+        opacity: .8;
+        background-size:200px 120px;
+    }
+</style>
 <body >
+  <div id = "myDiv" style="display:none;" class="loader">
+  </div>
+  
   <!-- <img id="img" src="hand.jpg"/>  -->
   <div class="d-flex justify-content-center">
     <div class="row pt-5">
-        <div class="col-md-12 text-center">
-            <button id='command' onclick="toggleVideo()" id="trackbutton" class="btn btn-block btn-info" type="button">
-            Start Video
-            </button>
-        </div>
-        <Br>
-        {{-- <div class="col-lg-3 pb-3"> --}}
-            <div id="updatenote" class="btn btn-block btn-warning " style='display:none;' > loading model ..</div><br>
-        {{-- </div> --}}
-        <video class="videobox canvasbox" autoplay="autoplay" style='display:none;' id="myvideo"></video>
-        
-            <canvas id="canvas" class="border canvasbox bg-dark" width="640" height="480"></canvas><Br>
-        
-        {{-- <span id="data" class="text-center">data</span> --}}
+      <video class="input_video" style='display:none;'></video>
+      
+      <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+      <Br>
+      <span class='text-center'> Result :</span>
     </div>
   </div>
-
-  <script src="https://unpkg.com/carbon-components@latest/scripts/carbon-components.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"> </script>
-  {{-- <script src="{{ asset('bootstrap/js/jquery-3.1.1.min.js') }}"></script>
-  <script src="{{ asset('bootstrap/js/popper.min.js') }}"></script>
-  <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script> --}}
-  <script src="{{ asset('bootstrap/track.js') }}"></script>
+  <script type="module">
+    show();
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+    
+    function onResults(results) {
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+      if (results.multiHandLandmarks) {
+      console.log(results);
+        for (const landmarks of results.multiHandLandmarks) {
+          drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
+                         {color: '#00FF00', lineWidth: 5});
+          drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 2});
+        }
+      }
+      canvasCtx.restore();
+    }
+    
+    const hands = new Hands({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+    }});
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+    hands.onResults(onResults);
+    
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await hands.send({image: videoElement});
+        document.getElementById("myDiv").style.display="none";
+      },
+      width: 1280,
+      height: 720
+    });
+    camera.start();
+    function show() {
+                document.getElementById("myDiv").style.display="block";
+            }
+    </script>
+ 
 </body>
 
 </html>

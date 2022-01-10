@@ -18,18 +18,22 @@
                     </h5>
                     <div ibox-tools></div>
                 </div>
-                @foreach($signs as $sign)
-                <div class="ibox-content">
-                    <div class="col-lg-2 border" id='{{$sign->id}}' data-id='{{$sign->id}}'>
-                        <span  class="fa fa-window-close delete-sign" title='delete'></span>
-                        <div class="container">    
-                            <img src="{{asset(".$sign->image.")}}" width="220" height="220" alt="..." class="img-thumbnail">
-                            
-                        </div>
-                        <p class='text-center'>{{$sign->text}}  </p>
+                <div class='row pl-3'>
+                    @foreach($signs as $sign)
+                  
+                        <div class="col-md-3 border ibox-content" id='{{$sign->id}}' data-id='{{$sign->id}}'>
+                          
+                                <span  class="fa fa-window-close delete-sign" title='delete'></span>
+                                <div class="container">    
+                                    <img src="{{asset(".$sign->image.")}}" width="220" height="220" alt="..." class="img-thumbnail">
+                                    
+                                </div>
+                                <p class='text-center'>{{$sign->text}}  </p>
+                            </div>
+                    
+                    @endforeach
                     </div>
                 </div>
-                @endforeach
             </div>
         </div>
     </div>

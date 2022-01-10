@@ -248,8 +248,16 @@
                 <script src="{{ asset('bootstrap/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
                 <script src="{{ asset('bootstrap/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
-                {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+                
+                
                 <script>
+                   
+                    function submitnewSign()
+                    {
+                    
+                        
+                        return false;
+                    }
                      $('.chosen-select').chosen({width: "100%"});
                      $(".touchspin1").TouchSpin({
                         buttondown_class: 'btn btn-white',
@@ -542,6 +550,13 @@
                             });
 
                         });
+                        var loadFile = function(event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            output.onload = function() {
+                            URL.revokeObjectURL(output.src) // free memory
+                            }
+                        };
                 </script>
             </body>
             </html>
