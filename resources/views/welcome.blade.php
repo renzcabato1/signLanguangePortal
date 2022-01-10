@@ -169,16 +169,16 @@
                   @foreach($teams as $team)
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="member">
-                        <div class="member-img">
-                            <img src="{{asset(".$team->image.")}}" class="img-fluid" alt="">
-                            <div class="social">
-                                {{-- <a href=""><i class="bi bi-twitter"></i></a> --}}
-                                <a target="_blank" href="{{$team->facebook}}"><i class="bi bi-facebook"></i></a>
-                                <a target="_blank" href="{{$team->instagram}}"><i class="bi bi-instagram"></i></a>
-                                <a target="_blank" href="{{$team->linkedin}}"><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        
-                        </div>
+                          <div class="member-img" >
+                              <img src="{{asset(".$team->image.")}}"  class="img-thumbnail rounded  d-block" style='height:300px;' alt="">
+                              <div class="social">
+                                  {{-- <a href=""><i class="bi bi-twitter"></i></a> --}}
+                                  <a target="_blank" href="{{$team->facebook}}"><i class="bi bi-facebook"></i></a>
+                                  <a target="_blank" href="{{$team->instagram}}"><i class="bi bi-instagram"></i></a>
+                                  <a target="_blank" href="{{$team->linkedin}}"><i class="bi bi-linkedin"></i></a>
+                              </div>
+                          
+                          </div>
                         <div class="member-info">
                             <h4>{{$team->name}}</h4>
                             <span>{{$team->role}}</span>
