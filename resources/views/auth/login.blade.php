@@ -23,7 +23,7 @@
             @endif
             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
             <a href='{{ asset('/documentations.pdf') }}' target='_' class="btn btn-warning block full-width m-b">Documentation</a>
-            {{-- <a href="{{ route('password.request') }}" onclick='show()'><small>Forgot password?</small></a> --}}
+            <a href="{{ route('password.request') }}" onclick='show()'><small>Forgot password?</small></a>
         </form>
         {{-- <p class="m-t"> <small>Copyright &copy; {{date('Y')}}</small> </p> --}}
     </div>

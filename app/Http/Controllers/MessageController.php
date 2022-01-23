@@ -5,6 +5,7 @@ use App\Message;
 use App\Faq;
 use App\Team;
 use Illuminate\Http\Request;
+use App\Notifications\SendMessage;
 
 class MessageController extends Controller
 {
@@ -17,7 +18,7 @@ class MessageController extends Controller
         $message->subject = $request->subject;
         $message->message = $request->message;
         $message->save();
-
+        $message->notify(new SendMessage($message));
         $request->session()->flash('status','Successfully submitted.');
         return redirect('/#contact'); 
     }
