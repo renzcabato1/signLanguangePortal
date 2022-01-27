@@ -62,11 +62,9 @@
         
     }
     var signs = {!! json_encode($signs->toArray()) !!};
-    console.log(signs);
+   
     var dataRandom = random_item(signs);
    
-    console.log(dataRandom);
-
     show();
     const videoElement = document.getElementsByClassName('input_video')[0];
     const renz = document.getElementsByClassName('renz')[0];
@@ -83,7 +81,7 @@
       
       if (multiHandWorldLandmarks.length >0) {
          
-      console.log(results.multiHandWorldLandmarks);
+      // console.log(results.multiHandWorldLandmarks);
       document.getElementById("result").innerHTML = dataRandom.text;
         for (const landmarks of results.multiHandLandmarks) {
           drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
