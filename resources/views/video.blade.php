@@ -53,24 +53,38 @@
       {{-- <span class='text-center'> Result :</span> --}}
     </div>
   </div>
-  <div class='text-center pt-5' > <h3>Result : <span id='result'> None</span> </h3> </div>
+  <div class='text-center pt-5' > <h3>Result : <span id='result'> </span> </h3> </div>
   <script type="module">
+    function random_item(items)
+    {
+      
+    return items[Math.floor(Math.random()*items.length)];
+        
+    }
     var signs = {!! json_encode($signs->toArray()) !!};
     console.log(signs);
+    var dataRandom = random_item(signs);
+   
+    console.log(dataRandom);
+
     show();
     const videoElement = document.getElementsByClassName('input_video')[0];
     const renz = document.getElementsByClassName('renz')[0];
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
     const canvasCtx = canvasElement.getContext('2d');
+    document.getElementById("result").innerHTML = "No Gesture Found";
     
+
     function onResults(results) {
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
       canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
         var  multiHandWorldLandmarks = results.multiHandWorldLandmarks;
+      
       if (multiHandWorldLandmarks.length >0) {
-        
+         
       console.log(results.multiHandWorldLandmarks);
+      document.getElementById("result").innerHTML = dataRandom.text;
         for (const landmarks of results.multiHandLandmarks) {
           drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
                          {color: '#00FF00', lineWidth: 2});
