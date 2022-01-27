@@ -80,7 +80,7 @@
         var  multiHandWorldLandmarks = results.multiHandWorldLandmarks;
       
       if (multiHandWorldLandmarks.length >0) {
-         
+      dataRandom = random_item(signs);
       // console.log(results.multiHandWorldLandmarks);
       document.getElementById("result").innerHTML = dataRandom.text;
         for (const landmarks of results.multiHandLandmarks) {
@@ -88,6 +88,10 @@
                          {color: '#00FF00', lineWidth: 2});
           drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 1});
         }
+      }
+      else
+      {
+        document.getElementById("result").innerHTML = "No Gesture Found";
       }
       canvasCtx.restore();
     }
